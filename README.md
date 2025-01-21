@@ -90,4 +90,4 @@ The ROQ tag, which stands for Read Overlap Quality, is added to each read in the
 
 
 ## Contact
-Bioinfolabkr@gmail.com
+ibclab.kr@gmail.com
