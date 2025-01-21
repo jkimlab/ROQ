@@ -14,18 +14,18 @@ my $bed_file;
 if ($input =~ /\.bam$/) {
     my $sam_file = basename($input, ".bam") . ".sam";
     system("samtools view -h $input > $sam_file") == 0 or die "Failed to convert BAM to SAM: $!";
-    print "Converted BAM to SAM: $sam_file\n";
+    print STDERR "Converted BAM to SAM: $sam_file\n";
 
     $bed_file = basename($sam_file, ".sam") . ".bed";
     system("sam2bed < $sam_file > $bed_file") == 0 or die "Failed to convert SAM to BED: $!";
-    print "Converted SAM to BED: $bed_file\n";
+    print STDERR "Converted SAM to BED: $bed_file\n";
 } elsif ($input =~ /\.sam$/) {
     $bed_file = basename($input, ".sam") . ".bed";
     system("sam2bed < $input > $bed_file") == 0 or die "Failed to convert SAM to BED: $!";
-    print "Converted SAM to BED: $bed_file\n";
+    print  STDERR "Converted SAM to BED: $bed_file\n";
 } elsif ($input =~ /\.bed$/) {
     $bed_file = $input;  
-    print "Using existing BED file: $bed_file\n";
+    print  STDERR "Using existing BED file: $bed_file\n";
 } else {
     die "Invalid input format. Please provide a BAM, SAM, or BED file.\n";
 }
