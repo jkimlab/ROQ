@@ -25,14 +25,12 @@ parser.add_argument('-i', '--input', help='Feature summary file (tab-delimited)'
 parser.add_argument('-ib', '--inputBam', help='Input original BAM file', required=True)
 parser.add_argument('-o', '--outdir', help='Output directory for results', required=True)
 parser.add_argument('-m', '--model', help='Trained model to use', required=False)
-parser.add_argument('-head', '--head', help='Header: 1 for True, 0 for None', required=True)
 args = parser.parse_args()
 
 # Paths and directories
 input_bam = args.inputBam
 feature_file = args.input
 outdir = args.outdir
-header_flag = int(args.head)
 
 if not os.path.exists(outdir):
     os.makedirs(outdir)
@@ -54,15 +52,8 @@ else:
     )
 
 # Load the feature file
-if header_flag == 1:
-    df = pd.read_csv(feature_file, sep='\t')
-else:
-    df = pd.read_csv(feature_file, sep='\t', header=None)
-    df.columns = [
-        'READ_NAME', 'MAPQ', 'ALIGN_SCORE', 'SECONDARY_ALIGN_SCORE', 'MISMATCHES',
-        'GAP_OPENS', 'GAP_EXT', 'EDIT_DIST', 'MATE_ALIGNMENT_SCORE', 'ALIGN_SCORE_DIFF',
-        'INSERT_SIZE', 'READ_GC_CONT', 'N_LOW_QUALITY_BASE', 'AVG_QUALITY_BASE_SCORE'
-    ]
+df = pd.read_csv(feature_file, sep='\t', header=None)
+df.columns = ['READ_NAME', 'MAPQ', 'ALIGN_SCORE', 'SECONDARY_ALIGN_SCORE', 'MISMATCHES','GAP_OPENS', 'GAP_EXT', 'EDIT_DIST', 'MATE_ALIGNMENT_SCORE', 'ALIGN_SCORE_DIFF','INSERT_SIZE', 'READ_GC_CONT', 'N_LOW_QUALITY_BASE', 'AVG_QUALITY_BASE_SCORE']
 
 # Preprocess features
 X = df.drop(columns=['READ_NAME'])
