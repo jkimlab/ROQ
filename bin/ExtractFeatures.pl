@@ -4,15 +4,37 @@ use strict;
 use warnings;
 use Cwd 'abs_path';
 use FindBin qw($Bin);
+use File::Basename;
 
 
-my $bam = shift;
+
+my $input = shift or die "Usage: $0 input.bam|input.sam|input.bed\n";
+my $bed_file;
+
+if ($input =~ /\.bam$/) {
+    my $sam_file = basename($input, ".bam") . ".sam";
+    system("samtools view -h $input > $sam_file") == 0 or die "Failed to convert BAM to SAM: $!";
+    print "Converted BAM to SAM: $sam_file\n";
+
+    $bed_file = basename($sam_file, ".sam") . ".bed";
+    system("sam2bed < $sam_file > $bed_file") == 0 or die "Failed to convert SAM to BED: $!";
+    print "Converted SAM to BED: $bed_file\n";
+} elsif ($input =~ /\.sam$/) {
+    $bed_file = basename($input, ".sam") . ".bed";
+    system("sam2bed < $input > $bed_file") == 0 or die "Failed to convert SAM to BED: $!";
+    print "Converted SAM to BED: $bed_file\n";
+} elsif ($input =~ /\.bed$/) {
+    $bed_file = $input;  
+    print "Using existing BED file: $bed_file\n";
+} else {
+    die "Invalid input format. Please provide a BAM, SAM, or BED file.\n";
+}
 my %hs_basecnt = ();
 
 my @init_tags = ("AS","XS","XM","XO","XG","NM","YS");
 my %hs_multipleid = ();
 
-open(F,"$bam");
+open(F, $bed_file) or die "Failed to open BED file: $bed_file\n";
 while(<F>){
     chomp;
 	#$pm -> start and next;
