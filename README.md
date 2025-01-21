@@ -4,6 +4,7 @@ Next-generation sequencing (NGS) has advanced genomic research, highlighting the
 
 ## Generate ROQ with example data
 ```bash
+# Clone the repository
 git clone https://github.com/jkimlab/ROQ/
 cd ./ROQ/example/
 
@@ -13,7 +14,7 @@ perl ../bin/ExtractFeatures.pl example.sam  1> feature.txt 2> log
 #Predict ROQ
 python ../bin/predROQ.py -i feature.txt -ib example.sam -m ../model/hg38_bowtie_model.pkl -o ./ 
 
-#See output
+# View the updated BAM file
 samtools view output.bam  
 
 ```
@@ -67,24 +68,26 @@ The ROQ tag, which stands for Read Overlap Quality, is added to each read in the
 
 ### System Requirements
 
-- **Perl**: Version 5.30.0 or higher [Perl Installation Guide](https://www.perl.org/get.html) 
-    - Required Perl modules:
-        - `Cwd` (Core module)
-        - `FindBin` (Core module)
-- **Python**: Version 3.8.12 or higher [Python Downloads](https://www.python.org/downloads/)
-    - Required Python libraries:
-        - `pandas`: Version 1.5.3
-        - `numpy`: Version 1.23.0
-        - `pysam`: Version 0.22.0
-        - `scikit-learn`: Version 1.2.2
-        - `xgboost`: Version 1.7.6
+| Software          | Version       | Installation Guide                                    |
+|--------------------|---------------|------------------------------------------------------|
+| **Perl**          | 5.30.0 or higher | [Perl Installation Guide](https://www.perl.org/get.html) |
+| **Python**        | 3.8.12 or higher | [Python Downloads](https://www.python.org/downloads/)  |
+| **Samtools**      | 1.9  | [Samtools GitHub](https://github.com/samtools/samtools) |
+| **convert2bed**   | 2.4.38        | [bedops Github](https://github.com/bedops/bedops)     |
 
-### **External Tools**
+### Required Perl Modules
+- `Cwd` (Core module)
+- `FindBin` (Core module)
 
-- **Samtools**: Version 1.9 (using htslib 1.9)
-    - Installation guide: [Samtools GitHub](https://github.com/samtools/samtools)
-- **convert2bed**: Version 2.4.38
-    - Installation guide: [bedops Github](https://github.com/bedops/bedops)
+### Required Python Libraries
+| Library         | Version   | Installation Command               |
+|------------------|-----------|------------------------------------|
+| `pandas`        | 1.5.3     | `pip install pandas==1.5.3`        |
+| `numpy`         | 1.23.0    | `pip install numpy==1.23.0`        |
+| `pysam`         | 0.22.0    | `pip install pysam==0.22.0`        |
+| `scikit-learn`  | 1.2.2     | `pip install scikit-learn==1.2.2`  |
+| `xgboost`       | 1.7.6     | `pip install xgboost==1.7.6`       |
+
 
 ## Contact
 Bioinfolabkr@gmail.com
