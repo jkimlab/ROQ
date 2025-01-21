@@ -55,7 +55,7 @@ while(<F>){
     my $qual = shift(@ar_tmp);
 
     $hs_multipleid{$id}++;
-    my $alnid = $id
+    my $alnid = $id;
     my %hs_tag = ();
     foreach my $thistag (@init_tags){
         $hs_tag{$thistag} = "NA";
