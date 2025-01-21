@@ -54,7 +54,7 @@ python [path to ROQ bin]/predROQ.py -i feature.txt -ib [user input read alignmen
 ## ROQ tag (Read Overlap Quality tag, represented as RQ:f:value)
 The ROQ tag, which stands for Read Overlap Quality, is added to each read in the BAM file by this tool. This custom tag represents a quantitative metric that evaluates how accurately a read overlaps with its true genomic origin. It serves as a more reliable alternative to traditional alignment quality metrics like MAPQ.
 
-### Details of the RQ Tag
+### Details of the ROQ Tag
 - **Full Name**: Read Overlap Quality
 - **Type**: Floating-point value
 - **Purpose**: Quantify the overlap between the read's mapped position and its true origin.
