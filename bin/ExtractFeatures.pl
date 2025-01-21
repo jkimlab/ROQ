@@ -3,21 +3,16 @@
 use strict;
 use warnings;
 use Cwd 'abs_path';
-use Parallel::ForkManager;
 use FindBin qw($Bin);
 
 
 my $bam = shift;
-#my $workdir = shift;
-#`mkdir -p $workdir`;
-
 my %hs_basecnt = ();
 
 my @init_tags = ("AS","XS","XM","XO","XG","NM","YS");
 my %hs_multipleid = ();
-#my $pm = new Parallel::ForkManager(10);
+
 open(F,"$bam");
-#open(F,"samtools view $bam|");
 while(<F>){
     chomp;
 	#$pm -> start and next;
@@ -57,23 +52,11 @@ while(<F>){
     }
     print "\t$diff";  #9 
     print "\t$isize";  #10
-    ### READ features 
-	#my $rsize = `python3 $Bin/read_feature/get_complexity_score.stdout.py $flag $read $workdir test` ;
-	#chomp($rsize);
-	#print "\t$rsize";#11
     my $gc = GC($read);
-    print "\t$gc"; #12
+    print "\t$gc"; #11
     my ($lowq,$avgq) = QUAL($qual);
-    print "\t$lowq";#13
-    print "\t$avgq"; #14
-    ### REF features 
-	#my $ref_seq = `perl $Bin/REF_feature/get_fa.pl $chr $start $end /mss6/nayoung/CNV_kibon/See_Mapping_pattern/PIPE/FeatureExtract/REF_feature/genome/  test $workdir ` ;
-    #my ($ref_cpg, $ref_size) = split(/\t/,$test);
-	#my $ref_cpg = GC($ref_seq);
-	#my $ref_size = `python3 $Bin/read_feature/get_complexity_score.stdout.py $flag $ref_seq $workdir test`;
-	#chomp($ref_size);
-	#print "\t$ref_cpg";#17
-	#print "\t$ref_size";#18
+    print "\t$lowq";#12
+    print "\t$avgq"; #13
     print "\n";
 }
 close(F);
